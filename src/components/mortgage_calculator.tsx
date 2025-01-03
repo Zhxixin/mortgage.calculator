@@ -41,42 +41,51 @@ export const MortgageCalculator = () => {
 
     console.log('render MortgageCalculator', state);
     return (
-        <form onSubmit={onSubmit}>
-            <div className="calculator-title"><span></span>Mortgage Calculator</div>
-            <button className="clear-button" onClick={resetForm}>Clear All</button>
-
-            <div className="input-container">
-                <label> Mortgage Amount</label>
-                <div className="input-wrapper">
-                    <span className="amount-icon">£</span>
-                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
-                    {errors.mortgageAmount && <span>MortgageAmoun is required</span>}
-                    {/* <input type="text" id="mortgageAmount" name="username" className="input-field"/> */}
-                </div>
+        <form onSubmit={onSubmit} className="calculator-container">
+            <div className="calculator-title">
+                <div className="title">Mortgage Calculator</div>
+                <button className="clear-button" onClick={resetForm}>Clear All</button>
             </div>
 
+            <div className="amount-container">
+                <div className="title"> Mortgage Amount</div>
+                <div className="input-wrapper">
+                    <span className="unit">£</span>
+                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
+                    {/* <input type="text" id="mortgageAmount" name="username" className="input-field"/> */}
+                </div>
+                {errors.mortgageAmount && <div className="error">This field is required</div>}
+            </div>
+
+
             <div className="input-container">
-                <div>
-                    <label>Mortgage Term</label>
+                <div className="term-container">
+                    <div className="title">Mortgage Term</div>
                     <div className="input-wrapper">
                         <input {...register("mortgageTerm", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
-                        <span className="term">years</span>
-                        {errors.mortgageTerm && <span>MortgageTerm is required</span>}
+                        <span className="unit">years</span>
                     </div>
+                    {errors.mortgageTerm && <div className="error">This field is required</div>}
                 </div>
-                <div>
-                    <label>Interest Rate</label>
+                <div className="rate-container">
+                    <div className="title">Interest Rate</div>
                     <div className="input-wrapper">
                         <input {...register("interestRate", { required: true, min: 0, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
-                        <span className="rate">%</span>
-                        {errors.interestRate && <span>InterestRate is required</span>}
+                        <span className="unit">%</span>
                     </div>
+                    {errors.interestRate && <div className="error">This field is required</div>}
                 </div>
             </div>
             <div className="mortgage-type-container">
-                <div>Mortgage Type</div>
-                <label htmlFor="repayment"><input id="repayment" {...register("mortgageType")} type="radio" value='repayment' />Repayment</label>
-                <label htmlFor="interestOnly"><input id="interestOnly" {...register("mortgageType")} type="radio" value='interestOnly' />Interest Only</label>
+                <div className="title">Mortgage Type</div>
+
+                <div className="repayment">
+                    <label htmlFor="repayment"><input id="repayment" {...register("mortgageType")} type="radio" value='repayment' />Repayment</label>
+                </div>
+                <div className="interestOnly">
+                    <label htmlFor="interestOnly"><input id="interestOnly" {...register("mortgageType")} type="radio" value='interestOnly' />Interest Only</label>
+                </div>
+
             </div>
             <p></p>
             <button className="submit-button" type="submit" >

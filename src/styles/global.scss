@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $color-lime: #d7da2f;
 $color-red: #d73328;
 
@@ -7,3 +9,218 @@ $color-slate-300: #9abed5;
 $color-slate-500: #6b94a8;
 $color-slate-700: #4e6e7e;
 $color-slate-900: #122f3f;
+
+body {
+    margin: 0;
+}
+
+#root {
+    min-height: 100vh;
+    min-width: 100%;
+    background-color: $color-slate-300;
+    padding: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+
+.mortgage-container {
+    max-width: 31.25rem;
+    margin: auto;
+    color: black;
+
+    background-color: white;
+    // border-radius: 1.875rem;
+
+    .calculator-container {
+        flex: 1;
+        padding: 1.25rem;
+        background-color: white;
+
+        .calculator-title {
+            margin-bottom: 1.875rem;
+
+            .title {
+                text-align: left;
+                flex: 1;
+                font-weight: 700;
+                font-size: 1.375rem;
+            }
+
+            button {
+                all: unset;
+                border-bottom: #4e6e7e;
+                color: $color-slate-700;
+                text-align: end;
+            }
+        }
+
+
+        .input-wrapper,
+        .repayment,
+        .interestOnly {
+            color: $color-slate-700;
+            border-radius: .5rem;
+            height: 2.5rem;
+            padding: 0;
+            margin: .625rem auto;
+            display: flex;
+        }
+
+        .input-wrapper {
+            border: 1px solid $color-slate-300;
+
+            .unit {
+                background-color: $color-slate-300;
+                height: 2.5rem;
+                text-align: center;
+                display: inline-block;
+                width: 3.125rem;
+                line-height: 2.5rem;
+            }
+
+
+            input {
+                all: unset;
+                color: black;
+                flex: 1;
+            }
+        }
+
+        .input-container {
+            // display: flex;
+            // gap: .625rem;
+
+            .unit {
+                border-top-right-radius: .5rem;
+                border-bottom-right-radius: .5rem;
+            }
+        }
+
+        .amount-container {
+            .unit {
+                border-top-left-radius: .25rem;
+                border-bottom-left-radius: .25rem;
+            }
+        }
+
+        .mortgage-type-container {
+
+            // input {
+            //     background-color: $color-slate-700;
+            // }
+            .repayment,
+            .interestOnly {
+                border: 1px solid $color-lime;
+                display: flex;
+                align-items: center;
+
+                input {
+                    width: 1.875rem;
+
+                }
+            }
+
+            .select {
+                background-color: color.scale($color-lime, $lightness: -50%);
+            }
+
+            &.hover {
+                background-color: color.scale($color-lime, $lightness: 30%);
+            }
+
+
+        }
+
+        .input-container,
+        .amount-container,
+        .mortgage-type-container {
+            .title {
+                color: $color-slate-700;
+            }
+        }
+
+        .error {
+            color: $color-red;
+            font-size: .875rem;
+        }
+
+        .submit-button {
+
+            all: unset;
+            background-color: $color-lime ;
+            border-radius: 2.5rem;
+            height: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 1.25rem;
+            line-height: 2.5rem;
+            display: flex;
+            margin: .625rem auto;
+
+            img {
+                margin: .5rem;
+            }
+        }
+
+    }
+
+    .calculator-result-container {
+
+        flex: 1;
+
+        .calculator-result {
+            background-color: $color-slate-900;
+            text-align: center;
+            color: white;
+            padding: 1.875rem;
+
+            img {
+                margin: 1.25rem;
+            }
+        }
+
+
+
+    }
+
+    @media screen and (min-width: 768px) {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        // align-self: center;
+        border-radius: 1.25rem;
+        // background-color: white;
+
+        .calculator-container {
+            flex: 1;
+
+            .calculator-title {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .input-container {
+                display: flex;
+                gap: .625rem;
+
+            }
+        }
+
+        .calculator-result-container {
+            background-color: white;
+
+            .calculator-result {
+                border-bottom-left-radius: 2.5rem;
+            }
+
+            flex: 1;
+        }
+    }
+}
