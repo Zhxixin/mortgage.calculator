@@ -49,9 +49,9 @@ export const MortgageCalculator = () => {
 
             <div className="amount-container">
                 <div className="title"> Mortgage Amount</div>
-                <div className="input-wrapper">
-                    <span className="unit">£</span>
-                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
+                <div className={`${errors.mortgageAmount && 'error'} input-wrapper`}>
+                    <span className={`${errors.mortgageAmount && 'error'} unit`}>£</span>
+                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" />
                     {/* <input type="text" id="mortgageAmount" name="username" className="input-field"/> */}
                 </div>
                 {errors.mortgageAmount && <div className="error">This field is required</div>}
@@ -61,17 +61,17 @@ export const MortgageCalculator = () => {
             <div className="input-container">
                 <div className="term-container">
                     <div className="title">Mortgage Term</div>
-                    <div className="input-wrapper">
-                        <input {...register("mortgageTerm", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
-                        <span className="unit">years</span>
+                    <div className={`${errors.mortgageTerm && 'error'} input-wrapper`}>
+                        <input {...register("mortgageTerm", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className={`${errors.mortgageTerm && 'error'} input-field`} />
+                        <span className={`${errors.mortgageTerm && 'error'} unit`}>years</span>
                     </div>
                     {errors.mortgageTerm && <div className="error">This field is required</div>}
                 </div>
                 <div className="rate-container">
                     <div className="title">Interest Rate</div>
-                    <div className="input-wrapper">
-                        <input {...register("interestRate", { required: true, min: 0, maxLength: 10, valueAsNumber: true, })} type="number" className="input-field" />
-                        <span className="unit">%</span>
+                    <div className={`${errors.interestRate && 'error'} input-wrapper`}>
+                        <input {...register("interestRate", { required: true, min: 0, maxLength: 10, valueAsNumber: true, })} type="number" className={`${errors.interestRate && 'error'} input-field`} />
+                        <span className={`${errors.interestRate && 'error'} unit`}>%</span>
                     </div>
                     {errors.interestRate && <div className="error">This field is required</div>}
                 </div>

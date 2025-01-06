@@ -8,6 +8,7 @@ $color-slate-500: #6b94a8;
 $color-slate-700: #4e6e7e;
 $color-slate-900: #122f3f;
 $color-slate-1000: #01141e;
+
 body {
     margin: 0;
 }
@@ -29,19 +30,23 @@ body {
     margin: auto;
     color: black;
     background-color: white;
+
     // border-radius: 1.875rem;
     .calculator-container {
         flex: 1;
         padding: 1.25rem;
         background-color: white;
+
         .calculator-title {
             margin-bottom: 1.875rem;
+
             .title {
                 text-align: left;
                 flex: 1;
                 font-weight: 700;
                 font-size: 1.375rem;
             }
+
             button {
                 all: unset;
                 border-bottom: #4e6e7e;
@@ -50,6 +55,7 @@ body {
                 text-decoration: underline;
             }
         }
+
         .input-wrapper,
         .repayment,
         .interestOnly {
@@ -60,8 +66,18 @@ body {
             margin: .625rem auto;
             display: flex;
         }
+
         .input-wrapper {
             border: 1px solid $color-slate-300;
+
+            &.error {
+                border: 1px solid $color-red;
+            }
+
+            &.hover {
+                border: 1px solid $color-lime;
+            }
+
             .unit {
                 background-color: $color-slate-300;
                 height: 2.5rem;
@@ -69,7 +85,19 @@ body {
                 display: inline-block;
                 width: 3.125rem;
                 line-height: 2.5rem;
+
+                &.error {
+                    color: white;
+                    background-color: $color-red;
+                }
+
+                &.hover {
+                    color: black;
+                    background-color: $color-lime;
+                }
+
             }
+
             input {
                 all: unset;
                 color: black;
@@ -77,40 +105,56 @@ body {
                 padding: 0 .625rem;
             }
         }
+
         .input-container {
+
             // display: flex;
             // gap: .625rem;
             .unit {
                 border-top-right-radius: .5rem;
                 border-bottom-right-radius: .5rem;
+
+                &.error {
+                    color: white;
+                    background-color: $color-red;
+                }
+
+                &.hover {
+                    color: black;
+                    background-color: $color-lime;
+                }
             }
         }
+
         .amount-container {
             .unit {
                 border-top-left-radius: .25rem;
                 border-bottom-left-radius: .25rem;
             }
         }
+
         .mortgage-type-container {
-            // input {
-            //     background-color: $color-slate-700;
-            // }
+
             .repayment,
             .interestOnly {
                 border: 1px solid $color-lime;
                 display: flex;
                 align-items: center;
+
                 input {
                     width: 1.875rem;
                 }
             }
+
             .select {
                 background-color: color.scale($color-lime, $lightness: -50%);
             }
+
             &.hover {
                 background-color: color.scale($color-lime, $lightness: 30%);
             }
         }
+
         .input-container,
         .amount-container,
         .mortgage-type-container {
@@ -118,11 +162,13 @@ body {
                 color: $color-slate-700;
             }
         }
+
         .error {
             color: $color-red;
             font-size: .875rem;
             margin-bottom: 1.25rem;
         }
+
         .submit-button {
             all: unset;
             background-color: $color-lime;
@@ -134,87 +180,122 @@ body {
             line-height: 2.5rem;
             display: flex;
             margin: .625rem auto;
+
             img {
                 margin: .5rem;
             }
         }
     }
+
     .calculator-result-container {
         flex: 1;
-        height: 100%;
-        .calculator-result {
-            background-color: $color-slate-900;
-            text-align: center;
-            color: white;
+
+        background-color: $color-slate-900;
+        text-align: center;
+        color: white;
+        padding: 1.25rem;
+
+        img {
+            margin: 1.25rem;
+        }
+
+        .remark {
+            font-size: .875rem;
+            line-height: 1.125rem;
+            color: $color-slate-300;
+        }
+
+        h2 {
+            margin: 0 auto 1rem auto;
+        }
+
+        .result-card {
+            text-align: start;
+            background-color: $color-slate-1000;
+            border-radius: 1.25rem;
             padding: 1.25rem;
-            img {
-                margin: 1.25rem;
+            font-size: .875rem;
+            color: $color-slate-300;
+            border-top: 4px solid $color-lime;
+            margin: 1.625rem auto;
+
+            .mortgage-pay {
+                font-size: 3.75rem;
+                color: $color-lime;
             }
-            .remark {
-                font-size: .875rem;
-                line-height: 1.125rem;
-                color: $color-slate-300;
+
+            .divider {
+                border: 0;
+                border-top: 1px solid $color-slate-300;
+                margin: 1rem auto;
             }
-            h2 {
-                margin: 0 auto 1rem auto;
-            }
-            .result-card {
-                text-align: start;
-                background-color: $color-slate-1000;
-                border-radius: 1.25rem;
-                padding: 1.25rem;
-                font-size: .875rem;
-                color: $color-slate-300;
-                border-top: 4px solid $color-lime;
-                margin: 1.625rem auto;
-                .mortgage-pay {
-                    font-size: 3.75rem;
-                    color: $color-lime;
-                }
-                .divider {
-                    border: 0;
-                    border-top: 1px solid $color-slate-300;
-                    margin: 1rem auto;
-                }
-                .mortgage-result {
-                    font-size: 1.25rem;
-                    font-weight: 500;
-                    color: white;
-                }
+
+            .mortgage-result {
+                font-size: 1.25rem;
+                font-weight: 500;
+                color: white;
             }
         }
     }
+
     @media screen and (min-width: 768px) {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-around;
+        // align-items: self-start;
         // align-self: center;
         border-radius: 1.25rem;
         margin: auto;
+        max-width: min-content;
+
         // background-color: white;
         .calculator-container {
-            flex: 1;
+            // flex: 1;
             border-radius: 1.25rem;
+            // max-width: min-content;
+
+            min-width: 25rem;
+
             .calculator-title {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
             }
+
             .input-container {
                 display: flex;
                 gap: .625rem;
-            }
-        }
-        .calculator-result-container {
-            flex: 1;
-            .calculator-result {
-                border-bottom-left-radius: 4rem;
-                border-top-right-radius: 1.25rem;
-                border-bottom-right-radius: 1.25rem;
-                .result-title {
-                    text-align: start;
+                min-width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+
+                .term-container,
+                .rate-container {
+                    input {
+                        width: 50%;
+                    }
                 }
             }
+        }
+
+        .calculator-result-container {
+            min-width: 25rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-bottom-left-radius: 4rem;
+            border-top-right-radius: 1.25rem;
+            border-bottom-right-radius: 1.25rem;
+
+
+            .result-title {
+                text-align: start;
+            }
+
+            .result-card {
+                min-width: 80%;
+            }
+
         }
     }
 }
