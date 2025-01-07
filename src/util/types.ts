@@ -40,10 +40,18 @@ export function calculateMortgage({
 
     return {
         monthlyPayment: parseFloat(monthlyPayment.toFixed(2)), // 保留两位小数
-        monthlyInterest: parseFloat(monthlyPayment.toFixed(2)), // 保留两位小数
+        monthlyInterest: parseFloat(monthlyInterest.toFixed(2)), // 保留两位小数
         totalPayment: parseFloat(totalPayment.toFixed(2)),
         totalInterest: parseFloat(totalInterest.toFixed(2)),
     };
 }
+
+
+
+
+export const numFormat = (
+    num?: number,
+    options: Intl.NumberFormatOptions & { currency?: string } = { style: "currency", currency: "GBP" }
+): string => Intl.NumberFormat("en-GB", options).format(num ?? 0);
 
 

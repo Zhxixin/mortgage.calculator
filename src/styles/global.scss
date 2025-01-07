@@ -26,12 +26,10 @@ body {
 }
 
 .mortgage-container {
-    // max-width: min-content;
     margin: auto;
     color: black;
     background-color: white;
 
-    // border-radius: 1.875rem;
     .calculator-container {
         flex: 1;
         padding: 1.25rem;
@@ -58,7 +56,7 @@ body {
 
         .input-wrapper,
         .repayment,
-        .interestOnly {
+        .interest-only {
             color: $color-slate-700;
             border-radius: .5rem;
             height: 2.5rem;
@@ -66,6 +64,8 @@ body {
             margin: .625rem auto;
             display: flex;
         }
+
+
 
         .input-wrapper {
             border: 1px solid $color-slate-300;
@@ -79,7 +79,7 @@ body {
             }
 
             .unit {
-                background-color: $color-slate-300;
+                background-color: $color-slate-100;
                 height: 2.5rem;
                 text-align: center;
                 display: inline-block;
@@ -103,6 +103,7 @@ body {
                 color: black;
                 flex: 1;
                 padding: 0 .625rem;
+                accent-color: #988403;
             }
         }
 
@@ -111,8 +112,8 @@ body {
             // display: flex;
             // gap: .625rem;
             .unit {
-                border-top-right-radius: .5rem;
-                border-bottom-right-radius: .5rem;
+                border-top-right-radius: .375rem;
+                border-bottom-right-radius: .375rem;
 
                 &.error {
                     color: white;
@@ -128,31 +129,36 @@ body {
 
         .amount-container {
             .unit {
-                border-top-left-radius: .25rem;
-                border-bottom-left-radius: .25rem;
+                border-top-left-radius: .375rem;
+                border-bottom-left-radius: .375rem;
             }
         }
 
         .mortgage-type-container {
 
             .repayment,
-            .interestOnly {
-                border: 1px solid $color-lime;
+            .interest-only {
+                border: 1px solid $color-slate-300;
                 display: flex;
                 align-items: center;
 
-                input {
+                input[type="radio"] {
                     width: 1.875rem;
+
+                    &:checked {
+                        accent-color: #988403;
+                        outline: none;
+                        box-shadow: none;
+                    }
+                }
+
+                &.selected {
+                    background-color: color.scale($color-lime, $lightness: 80%);
+                    font-weight: 500;
+                    border: 1px solid $color-lime;
                 }
             }
 
-            .select {
-                background-color: color.scale($color-lime, $lightness: -50%);
-            }
-
-            &.hover {
-                background-color: color.scale($color-lime, $lightness: 30%);
-            }
         }
 
         .input-container,
@@ -195,6 +201,10 @@ body {
         color: white;
         padding: 1.25rem;
 
+        .result-title {
+            text-align: start;
+        }
+
         img {
             margin: 1.25rem;
         }
@@ -222,6 +232,10 @@ body {
             .mortgage-pay {
                 font-size: 3.75rem;
                 color: $color-lime;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 18.75rem;
+
             }
 
             .divider {
@@ -234,6 +248,10 @@ body {
                 font-size: 1.25rem;
                 font-weight: 500;
                 color: white;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                max-width: 18.75rem;
+
             }
         }
     }
@@ -241,18 +259,12 @@ body {
     @media screen and (min-width: 768px) {
         display: flex;
         justify-content: space-around;
-        // align-items: self-start;
-        // align-self: center;
         border-radius: 1.25rem;
         margin: auto;
         max-width: min-content;
 
-        // background-color: white;
         .calculator-container {
-            // flex: 1;
             border-radius: 1.25rem;
-            // max-width: min-content;
-
             min-width: 25rem;
 
             .calculator-title {
@@ -286,11 +298,6 @@ body {
             border-bottom-left-radius: 4rem;
             border-top-right-radius: 1.25rem;
             border-bottom-right-radius: 1.25rem;
-
-
-            .result-title {
-                text-align: start;
-            }
 
             .result-card {
                 min-width: 80%;

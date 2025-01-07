@@ -1,24 +1,40 @@
 
-import { Radio } from "@mui/material";
-import * as React from "react"
 import { useForm } from "react-hook-form"
-import { calculateMortgage, MortgageDetails, MortgageResult } from "../util/types";
-import { MortgageAmount } from "./mortgage_amount";
+import { calculateMortgage, MortgageDetails, MortgageResult, MortgageType } from "../util/types";
 import calculatorIcon from "./../assets/images/icon-calculator.svg";
-import { useEffect, useReducer } from "react";
-import { MortgageType } from "./mortgage_type";
-import { mortgegeReducer } from "../store/store";
+import { useEffect, useState } from "react";
 import { useStoreAction } from "../util/context";
 
 export const MortgageCalculator = () => {
 
     const { state, dispatch } = useStoreAction();
+    const [mortgageType, setMortgageType] = useState<MortgageType>();
 
-    const { register, setValue, getValues, handleSubmit, reset, formState: { errors } } = useForm<MortgageDetails>();
+    const { register, getValues, handleSubmit, reset, formState: { errors }, } = useForm<MortgageDetails>();
+    const [focusState, setFocusState] = useState<{ [key: string]: boolean }>({
+        mortgageAmount: false,
+        mortgageTerm: false,
+        interestRate: false,
+    });
+
+    const handleFocus = (field: string) => {
+        if (focusState[field]) return;
+        setFocusState((prev) => ({ ...prev, [field]: true }));
+    };
+
+    const handleBlur = (field: string) => {
+        if (!focusState[field]) return;
+        setFocusState((prev) => ({ ...prev, [field]: false }));
+    };
+
+
 
     const onSubmit = handleSubmit((data) => {
         console.log('提交的数据', data);
-
+        if (!data.mortgageType) {
+            alert('Please select a mortgage type');
+            return;
+        }
         const mortgageDetails: MortgageDetails = {
             mortgageAmount: data.mortgageAmount,
             interestRate: data.interestRate,
@@ -27,7 +43,7 @@ export const MortgageCalculator = () => {
         };
 
         const result: MortgageResult = calculateMortgage(mortgageDetails);
-        dispatch?.call(this, { type: "mortgageResult", payload: { ...result, mortgageType: data.mortgageType ?? "repayment" } });
+        dispatch?.call(this, { type: "mortgageResult", payload: { ...result, mortgageType: data.mortgageType } });
 
     });
     const resetForm = () => {
@@ -49,10 +65,10 @@ export const MortgageCalculator = () => {
 
             <div className="amount-container">
                 <div className="title"> Mortgage Amount</div>
-                <div className={`${errors.mortgageAmount && 'error'} input-wrapper`}>
-                    <span className={`${errors.mortgageAmount && 'error'} unit`}>£</span>
-                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" />
-                    {/* <input type="text" id="mortgageAmount" name="username" className="input-field"/> */}
+                <div className={`${errors.mortgageAmount && 'error'} ${focusState.mortgageAmount && 'hover'} input-wrapper`}>
+                    <span className={`${errors.mortgageAmount && 'error'} ${focusState.mortgageAmount && 'hover'} unit`}>£</span>
+                    <input {...register("mortgageAmount", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" onFocus={() => handleFocus("mortgageAmount")}
+                        onBlur={() => handleBlur("mortgageAmount")} />
                 </div>
                 {errors.mortgageAmount && <div className="error">This field is required</div>}
             </div>
@@ -61,17 +77,17 @@ export const MortgageCalculator = () => {
             <div className="input-container">
                 <div className="term-container">
                     <div className="title">Mortgage Term</div>
-                    <div className={`${errors.mortgageTerm && 'error'} input-wrapper`}>
-                        <input {...register("mortgageTerm", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" className={`${errors.mortgageTerm && 'error'} input-field`} />
-                        <span className={`${errors.mortgageTerm && 'error'} unit`}>years</span>
+                    <div className={`${errors.mortgageTerm && 'error'} ${focusState.mortgageTerm && 'hover'} input-wrapper`}>
+                        <input {...register("mortgageTerm", { required: true, min: 1, maxLength: 10, valueAsNumber: true, })} type="number" onFocus={() => handleFocus('mortgageTerm')} onBlur={() => handleBlur('mortgageTerm')} />
+                        <span className={`${errors.mortgageTerm && 'error'} ${focusState.mortgageTerm && 'hover'} unit`}>years</span>
                     </div>
                     {errors.mortgageTerm && <div className="error">This field is required</div>}
                 </div>
                 <div className="rate-container">
                     <div className="title">Interest Rate</div>
-                    <div className={`${errors.interestRate && 'error'} input-wrapper`}>
-                        <input {...register("interestRate", { required: true, min: 0, maxLength: 10, valueAsNumber: true, })} type="number" className={`${errors.interestRate && 'error'} input-field`} />
-                        <span className={`${errors.interestRate && 'error'} unit`}>%</span>
+                    <div className={`${errors.interestRate && 'error'} ${focusState.interestRate && 'hover'} input-wrapper`}>
+                        <input {...register("interestRate", { required: true, min: 0, maxLength: 10, valueAsNumber: true, })} type="number" onFocus={() => handleFocus('interestRate')} onBlur={() => handleBlur('interestRate')} />
+                        <span className={`${errors.interestRate && 'error'} ${focusState.interestRate && 'hover'} unit`}>%</span>
                     </div>
                     {errors.interestRate && <div className="error">This field is required</div>}
                 </div>
@@ -79,11 +95,11 @@ export const MortgageCalculator = () => {
             <div className="mortgage-type-container">
                 <div className="title">Mortgage Type</div>
 
-                <div className="repayment">
-                    <label htmlFor="repayment"><input id="repayment" {...register("mortgageType")} type="radio" value='repayment' />Repayment</label>
+                <div className={`${mortgageType == 'repayment' && 'selected'} repayment`}>
+                    <label htmlFor="repayment"><input id="repayment" {...register("mortgageType")} type="radio" value='repayment' onChange={() => setMortgageType(() => 'repayment')} />Repayment</label>
                 </div>
-                <div className="interestOnly">
-                    <label htmlFor="interestOnly"><input id="interestOnly" {...register("mortgageType")} type="radio" value='interestOnly' />Interest Only</label>
+                <div className={`${mortgageType == 'interestOnly' && 'selected'} interest-only`}>
+                    <label htmlFor="interestOnly"><input id="interestOnly" {...register("mortgageType")} type="radio" value='interestOnly' onChange={() => setMortgageType(() => 'interestOnly')} />Interest Only</label>
                 </div>
 
             </div>

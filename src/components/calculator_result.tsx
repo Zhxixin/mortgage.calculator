@@ -4,11 +4,12 @@ import illustrationIcon from "./../assets/images/illustration-empty.svg";
 import { mortgegeReducer } from "../store/store";
 import { Card } from "@mui/material";
 import { useStoreAction } from "../util/context";
+import { numFormat } from "../util/types";
 export const CalculatorResult = () => {
 
     const { state } = useStoreAction();
 
-    console.log('render CalculatorResult', state);
+    // console.log('render CalculatorResult', state);
 
     return (
         <div className="calculator-result-container">
@@ -26,10 +27,10 @@ export const CalculatorResult = () => {
                         To adjust the results, edit the form and click “calculate repayments” again.</div>
                     <Card className="result-card">
                         <div className="monthly-repayments"> Your monthly repayments</div>
-                        <div className="mortgage-pay"> {state.mortgageType === 'interestOnly' ? `£ ${state.monthlyInterest}` : `£${state.monthlyPayment}`}</div>
+                        <div className="mortgage-pay"> {state.mortgageType === 'interestOnly' ? `${numFormat(state.monthlyInterest)}` : `${numFormat(state.monthlyPayment)}`}</div>
                         <hr className="divider" />
                         <div className="tip"> Total you'll repay over the term</div>
-                        <div className="mortgage-result">{state.mortgageType === 'interestOnly' ? `£ ${state.totalPayment}` : `£${state.totalInterest}`}</div>
+                        <div className="mortgage-result">{state.mortgageType === 'interestOnly' ? `${numFormat(state.totalInterest)}` : `${numFormat(state.totalPayment)}`}</div>
                     </Card>
                 </>}
 

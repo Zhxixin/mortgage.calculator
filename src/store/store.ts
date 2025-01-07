@@ -14,7 +14,7 @@ export const mortgegeReducer = (state: State, action: Action): State => {
         case "mortgageResult":
             return { ...state, ...action.payload };
         case "reset":
-            return { mortgageType: "repayment" };
+            return {};
         default:
             return state;
     }
