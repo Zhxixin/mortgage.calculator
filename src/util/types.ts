@@ -1,3 +1,4 @@
+import { FieldErrors, UseFormGetValues, UseFormRegister } from "react-hook-form";
 
 export type MortgageDetails = {
     mortgageAmount?: number;// 贷款总额
@@ -14,7 +15,12 @@ export interface MortgageResult {
     totalPayment: number; // 总还款额
     totalInterest: number; // 总利息
 }
+export interface MortgageComponentProps {
+    register: UseFormRegister<MortgageDetails>;
+    errors: FieldErrors<MortgageDetails>;
+    getValues?: UseFormGetValues<MortgageDetails>;
 
+}
 export function calculateMortgage({
     mortgageAmount,
     interestRate,
