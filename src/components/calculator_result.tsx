@@ -16,7 +16,7 @@ export const CalculatorResult = () => {
 
             {state?.monthlyPayment === undefined || state?.monthlyPayment == null ?
                 <>
-                    <img className="illustration-image" src={illustrationIcon} alt="mortgage amount" />
+                    <img className="illustration-image" src={`./${illustrationIcon}`} alt="mortgage amount" />
                     <h2>Results shown here</h2>
                     <div className="remark">Complete the form and click “calculate repayments” to see what
                         your monthly repayments would be.</div>
